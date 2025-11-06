@@ -39,12 +39,10 @@ function renderTask(task) {
     taskContainer.appendChild(icon);
     list.appendChild(taskContainer);
 }
-
 // Load saved tasks on page load
 tasks.forEach(task => renderTask(task));
 
-// Add new task
-document.querySelector('.enter-btn').addEventListener('click', () => {
+function addTask() {
     const inputTask = document.querySelector('.search-input');
     if (!inputTask.value.trim()) return;
 
@@ -53,4 +51,16 @@ document.querySelector('.enter-btn').addEventListener('click', () => {
     localStorage.setItem('tasks', JSON.stringify(tasks)); // save
     renderTask(newTask); // add to DOM
     inputTask.value = '';
+}
+
+
+// Add new task
+document.querySelector('.enter-btn').addEventListener('click', () => {
+    addTask();
 });
+
+document.querySelector('body').addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        addTask();
+    }
+}); 
